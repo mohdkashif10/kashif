@@ -1,0 +1,154 @@
+import java.util.Arrays;
+import java.util.Scanner;
+
+public class BinarySearchExtended {
+
+    // Iterative Binary Search for integers
+    public static int binarySearchIterative(int[] arr, int target) {
+        int low = 0, high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+
+            if (arr[mid] == target) {
+                return mid; // Target found
+            } else if (arr[mid] < target) {
+                low = mid + 1; // Search the right half
+            } else {
+                high = mid - 1; // Search the left half
+            }
+        }
+        return -1; // Target not found
+    }
+
+    // Recursive Binary Search for integers
+    public static int binarySearchRecursive(int[] arr, int low, int high, int target) {
+        if (low > high) {
+            return -1; // Base case: Target not found
+        }
+
+        int mid = low + (high - low) / 2;
+
+        if (arr[mid] == target) {
+            return mid; // Target found
+        } else if (arr[mid] < target) {
+            return binarySearchRecursive(arr, mid + 1, high, target); // Right half
+        } else {
+            return binarySearchRecursive(arr, low, mid - 1, target); // Left half
+        }
+    }
+
+    // Binary Search for Strings (case-insensitive)
+    public static int binarySearchString(String[] arr, String target) {
+        int low = 0, high = arr.length - 1;
+
+        while (low <= high) {
+            int mid = low + (high - low) / 2;
+            int compare = arr[mid].compareToIgnoreCase(target);
+
+            if (compare == 0) {
+                return mid; // Target found
+            } else if (compare < 0) {
+                low = mid + 1; // Search the right half
+            } else {
+                high = mid - 1; // Search the left half
+            }
+        }
+        return -1; // Target not found
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("\n=== Binary Search Program ===");
+            System.out.println("1. Search in Integer Array (Iterative)");
+            System.out.println("2. Search in Integer Array (Recursive)");
+            System.out.println("3. Search in String Array");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Iterative Integer Binary Search
+                    System.out.println("Enter the size of the integer array: ");
+                    int sizeInt1 = scanner.nextInt();
+                    int[] intArray1 = new int[sizeInt1];
+
+                    System.out.println("Enter " + sizeInt1 + " elements (sorted):");
+                    for (int i = 0; i < sizeInt1; i++) {
+                        intArray1[i] = scanner.nextInt();
+                    }
+
+                    System.out.print("Enter the integer to search for: ");
+                    int targetInt1 = scanner.nextInt();
+
+                    int resultIter = binarySearchIterative(intArray1, targetInt1);
+                    if (resultIter != -1) {
+                        System.out.println("Integer found at index: " + resultIter);
+                    } else {
+                        System.out.println("Integer not found in the array.");
+                    }
+                    break;
+
+                case 2:
+                    // Recursive Integer Binary Search
+                    System.out.println("Enter the size of the integer array: ");
+                    int sizeInt2 = scanner.nextInt();
+                    int[] intArray2 = new int[sizeInt2];
+
+                    System.out.println("Enter " + sizeInt2 + " elements (sorted):");
+                    for (int i = 0; i < sizeInt2; i++) {
+                        intArray2[i] = scanner.nextInt();
+                    }
+
+                    System.out.print("Enter the integer to search for: ");
+                    int targetInt2 = scanner.nextInt();
+
+                    int resultRec = binarySearchRecursive(intArray2, 0, intArray2.length - 1, targetInt2);
+                    if (resultRec != -1) {
+                        System.out.println("Integer found at index: " + resultRec);
+                    } else {
+                        System.out.println("Integer not found in the array.");
+                    }
+                    break;
+
+                case 3:
+                    // String Binary Search
+                    System.out.println("Enter the size of the string array: ");
+                    int sizeStr = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character
+                    String[] strArray = new String[sizeStr];
+
+                    System.out.println("Enter " + sizeStr + " strings (sorted):");
+                    for (int i = 0; i < sizeStr; i++) {
+                        strArray[i] = scanner.nextLine();
+                    }
+
+                    System.out.print("Enter the string to search for: ");
+                    String targetStr = scanner.nextLine();
+
+                    int resultStr = binarySearchString(strArray, targetStr);
+                    if (resultStr != -1) {
+                        System.out.println("String found at index: " + resultStr);
+                    } else {
+                        System.out.println("String not found in the array.");
+                    }
+                    break;
+
+                case 4:
+                    // Exit the program
+                    System.out.println("Exiting the program. Goodbye!");
+                    exit = true;
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+}
