@@ -1,0 +1,96 @@
+import java.util.Scanner;
+
+public class LinearSearchExtended {
+
+    // Method to perform linear search on an integer array
+    public static int linearSearchInt(int[] arr, int target) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == target) {
+                return i; // Return the index if the element is found
+            }
+        }
+        return -1; // Return -1 if not found
+    }
+
+    // Method to perform linear search on a string array
+    public static int linearSearchString(String[] arr, String target) {
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i].equals(target)) {
+                return i; // Return the index if the element is found
+            }
+        }
+        return -1; // Return -1 if not found
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        boolean exit = false;
+
+        while (!exit) {
+            System.out.println("\n=== Linear Search Program ===");
+            System.out.println("1. Search in Integer Array");
+            System.out.println("2. Search in String Array");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+
+            switch (choice) {
+                case 1:
+                    // Integer array search
+                    System.out.println("Enter the size of the integer array: ");
+                    int sizeInt = scanner.nextInt();
+                    int[] intArray = new int[sizeInt];
+
+                    System.out.println("Enter " + sizeInt + " elements:");
+                    for (int i = 0; i < sizeInt; i++) {
+                        intArray[i] = scanner.nextInt();
+                    }
+
+                    System.out.print("Enter the integer to search for: ");
+                    int targetInt = scanner.nextInt();
+
+                    int resultInt = linearSearchInt(intArray, targetInt);
+                    if (resultInt != -1) {
+                        System.out.println("Integer found at index: " + resultInt);
+                    } else {
+                        System.out.println("Integer not found in the array.");
+                    }
+                    break;
+
+                case 2:
+                    // String array search
+                    System.out.println("Enter the size of the string array: ");
+                    int sizeStr = scanner.nextInt();
+                    scanner.nextLine(); // Consume the newline character
+                    String[] strArray = new String[sizeStr];
+
+                    System.out.println("Enter " + sizeStr + " strings:");
+                    for (int i = 0; i < sizeStr; i++) {
+                        strArray[i] = scanner.nextLine();
+                    }
+
+                    System.out.print("Enter the string to search for: ");
+                    String targetStr = scanner.nextLine();
+
+                    int resultStr = linearSearchString(strArray, targetStr);
+                    if (resultStr != -1) {
+                        System.out.println("String found at index: " + resultStr);
+                    } else {
+                        System.out.println("String not found in the array.");
+                    }
+                    break;
+
+                case 3:
+                    // Exit the program
+                    System.out.println("Exiting the program. Goodbye!");
+                    exit = true;
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+}
